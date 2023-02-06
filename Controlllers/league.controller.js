@@ -4,32 +4,30 @@ const mongoose = require('mongoose');
 const League = require('../Models/league.model');
 
 module.exports = {
-  getAllLeaguees: async (req, res, next) => {
+  getAllLeagues: async () => {
     try {
       const results = await League.find({}, { __v: 0 });
-      res.send(results);
+      return results;
     } catch (error) {
       console.log(error.message);
     }
   },
 
-  createNewLeague: async (req, res, next) => {
+  createNewLeague: async (leagueP) => {
     try {
-      const league = new League(req.body);
+      const league = new League(leagueP);
       const result = await league.save();
       res.send(result);
     } catch (error) {
       console.log(error.message);
       if (error.name === 'ValidationError') {
-        next(createError(422, error.message));
-        return;
+        return createError(422, error.message);
       }
-      next(error);
+      return error;
     }
   },
 
-  findLeagueById: async (req, res, next) => {
-    const id = req.params.id;
+  findLeagueById: async (id) => {
     try {
       const league = await League.findById(id);
       if (!league) {
@@ -39,20 +37,17 @@ module.exports = {
     } catch (error) {
       console.log(error.message);
       if (error instanceof mongoose.CastError) {
-        next(createError(400, 'Invalid League id'));
-        return;
+        return createError(400, 'Invalid League id');
       }
-      next(error);
+      return error;
     }
   },
 
-  updateALeague: async (req, res, next) => {
+  updateALeague: async (league) => {
     try {
-      const id = req.params.id;
-      const updates = req.body;
       const options = { new: true };
 
-      const result = await League.findByIdAndUpdate(id, updates, options);
+      const result = await League.findByIdAndUpdate(league.id, league, options);
       if (!result) {
         throw createError(404, 'League does not exist');
       }
@@ -60,15 +55,14 @@ module.exports = {
     } catch (error) {
       console.log(error.message);
       if (error instanceof mongoose.CastError) {
-        return next(createError(400, 'Invalid League Id'));
+        return createError(400, 'Invalid League Id');
       }
 
-      next(error);
+      return error;
     }
   },
 
-  deleteALeague: async (req, res, next) => {
-    const id = req.params.id;
+  deleteALeague: async (id) => {
     try {
       const result = await League.findByIdAndDelete(id);
       if (!result) {
@@ -78,10 +72,9 @@ module.exports = {
     } catch (error) {
       console.log(error.message);
       if (error instanceof mongoose.CastError) {
-        next(createError(400, 'Invalid League id'));
-        return;
+        return createError(400, 'Invalid League id');
       }
-      next(error);
+      return error;
     }
   }
 };

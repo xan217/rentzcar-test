@@ -4,84 +4,81 @@ const mongoose = require('mongoose');
 const Match = require('../Models/match.model');
 
 module.exports = {
-  getAllMatches: async (req, res, next) => {
+  getAllMatches: async () => {
     try {
       const results = await Match.find({}, { __v: 0 });
-      res.send(results);
+      return results;
     } catch (error) {
       console.log(error.message);
     }
   },
 
-  createNewMatch: async (req, res, next) => {
+  createNewMatch: async (matchP) => {
     try {
-      const match = new Match(req.body);
+      console.log(matchP);
+      const match = new Match(matchP);
       const result = await match.save();
-      res.send(result);
+      return result;
     } catch (error) {
       console.log(error.message);
       if (error.name === 'ValidationError') {
-        next(createError(422, error.message));
-        return;
+        return createError(422, error.message);
       }
-      next(error);
+      return error;
     }
   },
 
-  findMatchById: async (req, res, next) => {
-    const id = req.params.id;
+  findMatchById: async (id) => {
     try {
-      const match = await Match.findById(id);
+      console.log(id);
+      const match = await Match.findOne({"id": id});
       if (!match) {
-        throw createError(404, 'Match does not exist.');
+        return null;
       }
-      res.send(match);
+      return match;
     } catch (error) {
       console.log(error.message);
       if (error instanceof mongoose.CastError) {
-        next(createError(400, 'Invalid Match id'));
-        return;
+        return createError(400, 'Invalid Match id');
       }
-      next(error);
+      return error;
     }
   },
 
-  updateAMatch: async (req, res, next) => {
+  updateAMatch: async (matchP) => {
     try {
-      const id = req.params.id;
-      const updates = req.body;
       const options = { new: true };
 
-      const result = await Match.findByIdAndUpdate(id, updates, options);
+      const match = await Match.findOne({"id": matchP.id});
+      const result = await Match.findByIdAndUpdate(match._id, matchP, options);
       if (!result) {
         throw createError(404, 'Match does not exist');
       }
-      res.send(result);
+      return result;
     } catch (error) {
       console.log(error.message);
       if (error instanceof mongoose.CastError) {
-        return next(createError(400, 'Invalid Match Id'));
+        return createError(400, 'Invalid Match Id');
       }
 
-      next(error);
+      return error;
     }
   },
 
-  deleteAMatch: async (req, res, next) => {
-    const id = req.params.id;
+  deleteAMatch: async (id) => {
     try {
       const result = await Match.findByIdAndDelete(id);
       if (!result) {
         throw createError(404, 'Match does not exist.');
       }
-      res.send(result);
+      return result;
     } catch (error) {
       console.log(error.message);
       if (error instanceof mongoose.CastError) {
-        next(createError(400, 'Invalid Match id'));
-        return;
+        return createError(400, 'Invalid Match id');
+        ;
       }
-      next(error);
+      return error;
     }
   }
 };

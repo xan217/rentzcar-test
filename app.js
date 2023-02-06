@@ -3,14 +3,20 @@ const app = express();
 
 const Requests = require('./Services/requests');
 
+// Initialize DB
+require('./initDB')();
+
 app.get('/', (req, res) => res.send('server entry point test'));
 
-app.get('/leagues', (req, res) => {
-  res.send(Requests.getLeagues())
-});
+// app.get('/leagues/all', (req, res) => {
+//   res.send(Requests.getLeagues())
+// });
 
 const MatchesRoute = require('./Routes/matches.route');
 app.use('/matches', MatchesRoute);
+
+const LeaguesRoute = require('./Routes/leagues.route');
+app.use('/leagues', LeaguesRoute);
 
 //404 handler and pass to error handler
 app.use((req, res, next) => {
