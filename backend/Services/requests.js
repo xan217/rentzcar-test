@@ -5,7 +5,7 @@ const api_url = 'https://api.football-data.org/v4/'
 const getMatches = async (league = null, dateFrom, dateTo) => {
   if (!league) return [];  
   const url = `${api_url}competitions/${league}/matches?dateFrom=${dateFrom}&dateTo=${dateTo}`
-  
+   
   let result = await HTTP.get(url);
   return result.data;
 }
@@ -33,7 +33,7 @@ const getLeagues = async () => {
     //{id: 2077, name: "European Championship",           code: "EC"},
     {id: 2114, name: "Serie A",                         code: "SA"},
     {id: 2072, name: "Premier League",                  code: "PL"},
-    {id: 2159, name: "Copa Libertadores",               code: "SCLIA"}
+    //{id: 2159, name: "Copa Libertadores",               code: "SCLIA"}
   ];
 
   return leagues;

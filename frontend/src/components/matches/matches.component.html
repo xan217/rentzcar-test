@@ -16,7 +16,7 @@
     </div>
     <div class="form-field">
       <label for="periodTime">
-        Período a consultar
+        Ligas de futbol
       </label>
       <select name="leaguesList" id="leaguesList" class="selector" v-model="selectedLeague">
         <option selected disabled value="--">-- SELECCIONE --</option>
@@ -36,11 +36,28 @@
     </button>
   </div>
 
+  <div class="league-info" v-if="requested">
+    <img :src="competition.emblem" alt="">
+    <h1>{{ competition.name }}</h1>
+  </div>
+
   <div v-if="matches.length > 0">
     <MatchPairComponent
       v-for="(match, $index) in matches"
       :match="match"
     ></MatchPairComponent>
+  </div>
+  <div v-else-if="requested && matches.length == 0 && !searching" class="empty-response">
+    <span>No hay partidos para las condiciones de búsqueda seleccionadas</span>
+    <img src="../../assets/sadFace.svg" alt="">
+  </div>
+
+  <div v-if="!searching && !requested" class="empty-response">
+    <span>Seleccione un período y una liga para realizar la consulta de los partidos.</span>
+  </div>
+
+  <div class="isSearching" v-if="searching">
+    <span class="loader"></span>
   </div>
 
 </div>

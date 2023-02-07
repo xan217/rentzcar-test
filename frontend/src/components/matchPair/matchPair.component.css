@@ -1,5 +1,5 @@
 .pairDataContainer {
-  border: 1px solid lightgray;
+  border: 1px solid GREEN;
   margin: 5px 100px;
   border-radius: 5px;
   transition: all 0.2s ease;
@@ -93,3 +93,8 @@
   display: flex;
 }
 
+.date {
+  padding: 3px;
+  font-size: 16px;
+
+}

@@ -7,7 +7,16 @@
   margin-top: 60px;
 }
 
+.app {
+  background: rgb(255, 255, 255, 0.8);
+  margin: 50px;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 0px 3px 5px 3px lightgreen;
+}
+
 body {
   background: url('https://th.bing.com/th/id/R.f30512127acc42e9bbfc58ac6ab70503?rik=GGDe5DwHamW11A&pid=ImgRaw&r=0');
-  background-size: cover;
+  background-size: inherit;
+  background-attachment: fixed;
 }
