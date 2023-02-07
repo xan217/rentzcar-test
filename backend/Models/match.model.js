@@ -13,9 +13,11 @@ const MatchSchema = new Schema({
   utcDate: String,
   home_team_id: Number,
   home_team_name: String,
+  home_team_logo: String,
   home_team_score: Number,
   away_team_id: Number,
   away_team_name: String,
+  away_team_logo: String,
   away_team_score: Number
 });
 

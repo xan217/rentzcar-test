@@ -17,7 +17,7 @@ module.exports = {
     try {
       const league = new League(leagueP);
       const result = await league.save();
-      res.send(result);
+      return result;
     } catch (error) {
       console.log(error.message);
       if (error.name === 'ValidationError') {

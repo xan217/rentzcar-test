@@ -1,7 +1,15 @@
 const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
 const app = express();
 
-const Requests = require('./Services/requests');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors({
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  exposedHeaders: ['Total-Count', 'Total-Pages'],
+}));
 
 // Initialize DB
 require('./initDB')();

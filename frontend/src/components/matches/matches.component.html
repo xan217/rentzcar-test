@@ -1,0 +1,46 @@
+<div>
+  <div class="formContainer">
+    <div class="form-field">
+      <label for="periodTime">
+        Período a consultar
+      </label>
+      <select name="periodTime" id="periodTime" class="selector" v-model="selectedTimePeriod">
+        <option selected disabled value="--">-- SELECCIONE --</option>
+        <option 
+          v-for="(period, $index) in timePeriod"
+          :value="period.value"
+        >
+          {{ period.label }}
+        </option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label for="periodTime">
+        Período a consultar
+      </label>
+      <select name="leaguesList" id="leaguesList" class="selector" v-model="selectedLeague">
+        <option selected disabled value="--">-- SELECCIONE --</option>
+        <option 
+          v-for="(league, $index) in leagues"
+          :value="league.code"
+        >
+          {{ league.name }}
+        </option>
+      </select>
+    </div>
+
+    <button 
+      @click="requestMatches()"
+      :disabled="selectedTimePeriod.length == 0 || selectedLeague.length == 0">
+      Buscar partidos
+    </button>
+  </div>
+
+  <div v-if="matches.length > 0">
+    <MatchPairComponent
+      v-for="(match, $index) in matches"
+      :match="match"
+    ></MatchPairComponent>
+  </div>
+
+</div>

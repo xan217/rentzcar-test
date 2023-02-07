@@ -1,0 +1,16 @@
+.formContainer {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  margin: 0 auto;
+  width: 70%;
+  justify-content: center;
+  column-gap: 20px;
+}
+
+.selector {
+  width: 100%;
+}
+
+.form-field {
+  text-align: left;
+}
