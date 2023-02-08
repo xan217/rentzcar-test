@@ -1,0 +1,52 @@
+.formContainer {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  margin: 0 auto;
+  width: 70%;
+  justify-content: center;
+  column-gap: 20px;
+}
+
+.selector {
+  width: 100%;
+}
+
+.form-field {
+  text-align: left;
+}
+
+.empty-response {
+  padding: 20px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.empty-response img{
+  width: 200px;
+  margin-top: 10px;
+}
+
+.league-info {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+.league-info img {
+  width: 150px;
+  margin: 10px;
+}
+
+.isSearching {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
