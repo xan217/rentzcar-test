@@ -15,7 +15,6 @@ module.exports = {
 
   createNewMatch: async (matchP) => {
     try {
-      console.log(matchP);
       const match = new Match(matchP);
       const result = await match.save();
       return result;
@@ -30,7 +29,6 @@ module.exports = {
 
   findMatchById: async (id) => {
     try {
-      console.log(id);
       const match = await Match.findOne({"id": id});
       if (!match) {
         return null;
@@ -50,7 +48,9 @@ module.exports = {
       const options = { new: true };
 
       const match = await Match.findOne({"id": matchP.id});
-      const result = await Match.findByIdAndUpdate(match._id, matchP, options);
+      let result = null;
+      if(match)
+        result = await Match.findByIdAndUpdate(match._id, matchP, options);
       if (!result) {
         throw createError(404, 'Match does not exist');
       }
