@@ -91,34 +91,5 @@ router.get('/:block/:league', async (req, res) => {
   res.send(parsedResult);
 });
 
-//Get a Match by id
-router.get('/:id', MatchController.findMatchById);
-
-// //Get a list of all Match
-// router.get('/', MatchController.getAllMatches);
-
-// //Create a new Match
-// router.post('/', MatchController.createNewMatch);
-
-//Retrieve match from API
-router.get('/full/:id', async (req, res) => {
-  const result = await Requests.getMatch(req.params.id);
-
-  MatchController.updateAMatch({
-    id: result.id,
-    utcDate: result.utcDate,
-    home_team_score: result.score.fullTime.home,
-    away_team_score: result.score.fullTime.away,
-  });
-
-  return result;
-});
-
-//Update a Match by id
-router.patch('/:id', MatchController.updateAMatch);
-
-// //Delete a Match by id
-// router.delete('/:id', MatchController.deleteAMatch);
-
 module.exports = router;
 
