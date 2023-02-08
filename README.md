@@ -26,7 +26,7 @@ TODO:
 
 ## HOW TO RUN
 - There are two bash files to run and stop all the docker containers
-- Just use to run
--- bash runAll.sh
-- Use to stop
--- bash stopAll.sh
+- Just use to run:
+bash runAll.sh
+- Use to stop:
+bash stopAll.sh
